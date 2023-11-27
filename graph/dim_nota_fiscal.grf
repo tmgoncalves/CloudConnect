@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph author="thiago.mgoncalves" created="Thu Jan 19 17:23:52 BRST 2023" guiVersion="3.4.4.P" id="1674157624373" licenseType="Commercial" modified="Thu Jan 19 18:40:23 BRST 2023" modifiedBy="thiago.mgoncalves" name="dim_nota_fiscal" revision="1.2" showComponentDetails="true">
+<Global>
+<Property fileURL="workspace.prm" id="GraphParameter0"/>
+<Note alignment="1" backgroundColorB="225" backgroundColorG="255" backgroundColorR="255" enabled="true" folded="false" height="288" id="Note0" textColorB="0" textColorG="0" textColorR="0" textFontSize="8" title="LOAD INVOICE/RECEIPT DATASET" titleColorB="0" titleColorG="0" titleColorR="0" titleFontSize="10" width="661" x="155" y="114"/>
+<Dictionary/>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" guiName="GD Dataset Writer" guiX="587" guiY="224" id="GD_DATASET_WRITER" retriesInterval="60" retriesNumber="5" type="GD_DATASET_WRITER"/>
+<Node enabled="enabled" guiName="Reformat" guiX="387" guiY="213" id="REFORMAT" type="REFORMAT"/>
+</Phase>
+<Phase number="10">
+<Node enabled="enabled" fileURL="zip:(${DATA_SOURCE_DIR}/${gdc_agent_zip})#nota_fiscal.csv*" guiName="CSV Reader" guiX="205" guiY="213" id="NOTA_FISCAL" type="DATA_READER"/>
+</Phase>
+</Graph>

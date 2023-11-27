@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph author="thiago.mgoncalves" created="Thu Jan 19 17:23:52 BRST 2023" guiVersion="3.4.4.P" id="1674157105708" licenseType="Commercial" modified="Fri Jan 20 15:18:37 BRST 2023" modifiedBy="tmgoncalves" name="dim_cliente" revision="1.12" showComponentDetails="true">
+<Global>
+<Metadata id="Metadata0" previewAttachment="zip:(${DATA_SOURCE_DIR}/ProjetoBI.zip)#cliente.csv" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="," label="zip:(./data/source/ProjetoBI.zip)#cliente.csv" name="zip_data_source_ProjetoBI_zip_cliente_csv_Input" previewAttachment="zip:(${DATA_SOURCE_DIR}/ProjetoBI.zip)#cliente.csv" previewAttachmentCharset="ISO-8859-1" quoteChar="&quot;" quotedStrings="true" recordDelimiter="\n" skipSourceRows="1" type="delimited">
+<Field name="SK_CLIENTE" type="string"/>
+<Field name="CPF" type="string"/>
+<Field name="NOME_CLIENTE" type="string"/>
+<Field name="DATA_NASCIMENTO" type="string"/>
+<Field name="SEXO_CLIENTE" type="string"/>
+<Field name="PRIMEIRA_COMPRA" type="string"/>
+<Field eofAsDelimiter="false" name="IDADE" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata1" previewAttachment="zip:(./data/source/ProjetoBI.zip)#cliente.csv" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="," label="zip:(./data/source/ProjetoBI.zip)#cliente.csv" name="zip_data_source_ProjetoBI_zip_cliente_csv_Output" previewAttachment="zip:(./data/source/ProjetoBI.zip)#cliente.csv" previewAttachmentCharset="ISO-8859-1" quoteChar="&quot;" quotedStrings="true" recordDelimiter="\n" recordSize="-1" skipSourceRows="1" type="delimited">
+<Field eofAsDelimiter="false" name="SK_CLIENTE" nullable="true" shift="0" size="0" type="string"/>
+<Field eofAsDelimiter="false" name="CPF" nullable="true" shift="0" size="0" type="string"/>
+<Field eofAsDelimiter="false" name="NOME_CLIENTE" nullable="true" shift="0" size="0" type="string"/>
+<Field eofAsDelimiter="false" format="yyyy-MM-dd" locale="pt.BR" name="DATA_NASCIMENTO" nullable="true" shift="0" size="0" type="date"/>
+<Field eofAsDelimiter="false" name="SEXO_CLIENTE" nullable="true" shift="0" size="0" type="string"/>
+<Field eofAsDelimiter="false" name="PRIMEIRA_COMPRA" nullable="true" shift="0" size="0" type="string"/>
+<Field eofAsDelimiter="false" name="IDADE" nullable="true" shift="0" size="0" type="decimal"/>
+</Record>
+</Metadata>
+<Property fileURL="workspace.prm" id="GraphParameter0"/>
+<Note alignment="1" backgroundColorB="225" backgroundColorG="255" backgroundColorR="255" enabled="true" folded="false" height="268" id="Note0" textColorB="0" textColorG="0" textColorR="0" textFontSize="8" title="LOAD CUSTOMER DATASET" titleColorB="0" titleColorG="0" titleColorR="0" titleFontSize="10" width="596" x="61" y="83"/>
+<Dictionary/>
+</Global>
+<Phase number="10">
+<Node charset="ISO-8859-1" enabled="enabled" fileURL="zip:(${DATA_SOURCE_DIR}/${gdc_agent_zip})#cliente.csv*" guiName="CSV Reader" guiX="82" guiY="168" id="CLIENTE" type="DATA_READER"/>
+<Node enabled="enabled" guiName="Reformat" guiX="271" guiY="168" id="CLIENTE_REF" type="REFORMAT">
+<attr name="transform"><![CDATA[//#CTL2
+import 'trans/lib.ctl';
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.SK_CLIENTE = $in.0.SK_CLIENTE;
+	$out.0.CPF = $in.0.CPF;
+	$out.0.NOME_CLIENTE = $in.0.NOME_CLIENTE;
+	$out.0.DATA_NASCIMENTO = str2date($in.0.DATA_NASCIMENTO, 'yyyy-MM-ddHH:mm:ss', 'pt.BR');
+	$out.0.SEXO_CLIENTE = $in.0.SEXO_CLIENTE;
+	$out.0.PRIMEIRA_COMPRA = $in.0.PRIMEIRA_COMPRA;
+	$out.0.IDADE = formatDecimal($in.0.IDADE);
+
+// abs(str2decimal(trim(format), '${NUMBER_PATTERN}','${NUMBER_LOCALE}')
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node dataset="dataset.cliente" datasetFieldMappings="{&quot;gd_dataset&quot;:{&quot;datasetId&quot;:&quot;dataset.cliente&quot;,&quot;datasetTitle&quot;:&quot;Cliente&quot;,&quot;attributes&quot;:[{&quot;gd_dataset_attribute&quot;:{&quot;id&quot;:&quot;attr.cliente.cpf&quot;,&quot;title&quot;:&quot;CPF&quot;,&quot;prettyId&quot;:&quot;attr_cliente_cpf&quot;,&quot;displayForms&quot;:[{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.cliente.cpf&quot;,&quot;title&quot;:&quot;CPF&quot;,&quot;prettyId&quot;:&quot;cpf&quot;,&quot;assignedMetadataField&quot;:&quot;CPF&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}],&quot;assignedMetadataField&quot;:null,&quot;selectedDisplayForm&quot;:{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.cliente.cpf&quot;,&quot;title&quot;:&quot;CPF&quot;,&quot;prettyId&quot;:&quot;cpf&quot;,&quot;assignedMetadataField&quot;:&quot;CPF&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}}},{&quot;gd_dataset_attribute&quot;:{&quot;id&quot;:&quot;attr.cliente.datadenascimento&quot;,&quot;title&quot;:&quot;Data de Nascimento&quot;,&quot;prettyId&quot;:&quot;attr_cliente_datadenascimento&quot;,&quot;displayForms&quot;:[{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.cliente.datadenascimento&quot;,&quot;title&quot;:&quot;Data de Nascimento&quot;,&quot;prettyId&quot;:&quot;datadenascimento&quot;,&quot;assignedMetadataField&quot;:&quot;DATA_NASCIMENTO&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}],&quot;assignedMetadataField&quot;:null,&quot;selectedDisplayForm&quot;:null}},{&quot;gd_dataset_attribute&quot;:{&quot;id&quot;:&quot;attr.cliente.generodocliente&quot;,&quot;title&quot;:&quot;Gênero do Cliente&quot;,&quot;prettyId&quot;:&quot;attr_cliente_generodocliente&quot;,&quot;displayForms&quot;:[{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.cliente.generodocliente&quot;,&quot;title&quot;:&quot;Gênero do Cliente&quot;,&quot;prettyId&quot;:&quot;generodocliente&quot;,&quot;assignedMetadataField&quot;:&quot;SEXO_CLIENTE&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}],&quot;assignedMetadataField&quot;:null,&quot;selectedDisplayForm&quot;:null}},{&quot;gd_dataset_attribute&quot;:{&quot;id&quot;:&quot;attr.cliente.idade&quot;,&quot;title&quot;:&quot;Idade&quot;,&quot;prettyId&quot;:&quot;attr_cliente_idade&quot;,&quot;displayForms&quot;:[{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.cliente.idade&quot;,&quot;title&quot;:&quot;Idade&quot;,&quot;prettyId&quot;:&quot;idade&quot;,&quot;assignedMetadataField&quot;:&quot;IDADE&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}],&quot;assignedMetadataField&quot;:null,&quot;selectedDisplayForm&quot;:{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.cliente.idade&quot;,&quot;title&quot;:&quot;Idade&quot;,&quot;prettyId&quot;:&quot;idade&quot;,&quot;assignedMetadataField&quot;:&quot;IDADE&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}}},{&quot;gd_dataset_attribute&quot;:{&quot;id&quot;:&quot;attr.cliente.idcliente&quot;,&quot;title&quot;:&quot;ID Cliente&quot;,&quot;prettyId&quot;:&quot;attr_cliente_idcliente&quot;,&quot;displayForms&quot;:[{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.cliente.idcliente&quot;,&quot;title&quot;:&quot;ID Cliente&quot;,&quot;prettyId&quot;:&quot;idcliente&quot;,&quot;assignedMetadataField&quot;:&quot;SK_CLIENTE&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}],&quot;assignedMetadataField&quot;:null,&quot;selectedDisplayForm&quot;:null}},{&quot;gd_dataset_attribute&quot;:{&quot;id&quot;:&quot;attr.cliente.nomedocliente&quot;,&quot;title&quot;:&quot;Nome do Cliente&quot;,&quot;prettyId&quot;:&quot;attr_cliente_nomedocliente&quot;,&quot;displayForms&quot;:[{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.cliente.nomedocliente&quot;,&quot;title&quot;:&quot;Nome do Cliente&quot;,&quot;prettyId&quot;:&quot;nomedocliente&quot;,&quot;assignedMetadataField&quot;:&quot;NOME_CLIENTE&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}],&quot;assignedMetadataField&quot;:null,&quot;selectedDisplayForm&quot;:null}},{&quot;gd_dataset_attribute&quot;:{&quot;id&quot;:&quot;attr.cliente.primeiracompra&quot;,&quot;title&quot;:&quot;Primeira Compra&quot;,&quot;prettyId&quot;:&quot;attr_cliente_primeiracompra&quot;,&quot;displayForms&quot;:[{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.cliente.primeiracompra&quot;,&quot;title&quot;:&quot;Primeira Compra&quot;,&quot;prettyId&quot;:&quot;primeiracompra&quot;,&quot;assignedMetadataField&quot;:&quot;PRIMEIRA_COMPRA&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}],&quot;assignedMetadataField&quot;:null,&quot;selectedDisplayForm&quot;:null}}],&quot;referencedAttributes&quot;:[],&quot;dateAttributes&quot;:[],&quot;simpleFacts&quot;:[],&quot;dateFacts&quot;:[],&quot;datesWithFactConflict&quot;:[],&quot;fieldsWithMetadataConflict&quot;:[],&quot;entitiesWithoutValue&quot;:[],&quot;entitiesWithoutMetadata&quot;:[],&quot;unassigneddateFacts&quot;:[]}}" enabled="enabled" guiName="GD Dataset Writer" guiX="458" guiY="168" id="CLIENTE_WRITER" mode="${LOAD_MODE_DIM}" retriesInterval="60" retriesNumber="5" type="GD_DATASET_WRITER"/>
+<Edge debugMode="true" fromNode="CLIENTE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (output)" toNode="CLIENTE_REF:0"/>
+<Edge debugMode="true" fromNode="CLIENTE_REF:0" guiBendpoints="" guiRouter="Manhattan" id="Edge1" inPort="Port 0 (in)" metadata="Metadata1" outPort="Port 0 (out)" toNode="CLIENTE_WRITER:0"/>
+</Phase>
+</Graph>

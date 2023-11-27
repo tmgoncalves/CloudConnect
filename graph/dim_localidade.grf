@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph author="thiago.mgoncalves" created="Thu Jan 19 17:23:52 BRST 2023" guiVersion="3.4.4.P" id="1674157602449" licenseType="Commercial" modified="Thu Jan 19 20:21:48 BRST 2023" modifiedBy="thiago.mgoncalves" name="dim_localidade" revision="1.4" showComponentDetails="true">
+<Global>
+<Metadata id="Metadata0" previewAttachment="zip:(${DATA_SOURCE_DIR}/ProjetoBI.zip)#localidade.csv" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="," label="zip:(./data/source/ProjetoBI.zip)#localidade.csv" name="zip_data_source_ProjetoBI_zip_localidade_csv_Input" previewAttachment="zip:(${DATA_SOURCE_DIR}/ProjetoBI.zip)#localidade.csv" previewAttachmentCharset="ISO-8859-1" quoteChar="&quot;" quotedStrings="true" recordDelimiter="\n" skipSourceRows="1" type="delimited">
+<Field name="SK_LOCALIDADE" type="string"/>
+<Field name="CIDADE" type="string"/>
+<Field name="ESTADO" type="string"/>
+<Field eofAsDelimiter="false" name="CEP" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata1" previewAttachment="zip:(${DATA_SOURCE_DIR}/ProjetoBI.zip)#localidade.csv" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="," label="zip:(./data/source/ProjetoBI.zip)#localidade.csv" name="zip_data_source_ProjetoBI_zip_localidade_csv_Output" previewAttachment="zip:(${DATA_SOURCE_DIR}/ProjetoBI.zip)#localidade.csv" previewAttachmentCharset="ISO-8859-1" quoteChar="&quot;" quotedStrings="true" recordDelimiter="\n" skipSourceRows="1" type="delimited">
+<Field name="SK_LOCALIDADE" type="string"/>
+<Field name="CIDADE" type="string"/>
+<Field name="ESTADO" type="string"/>
+<Field eofAsDelimiter="false" name="CEP" type="string"/>
+</Record>
+</Metadata>
+<Property fileURL="workspace.prm" id="GraphParameter0"/>
+<Note alignment="1" backgroundColorB="225" backgroundColorG="255" backgroundColorR="255" enabled="true" folded="false" height="281" id="Note0" textColorB="0" textColorG="0" textColorR="0" textFontSize="8" title="LOAD REGION DATASET" titleColorB="0" titleColorG="0" titleColorR="0" titleFontSize="10" width="718" x="93" y="94"/>
+<Dictionary/>
+</Global>
+<Phase number="10">
+<Node charset="ISO-8859-1" enabled="enabled" fileURL="zip:(${DATA_SOURCE_DIR}/${gdc_agent_zip})#localidade.csv*" guiName="CSV Reader" guiX="152" guiY="190" id="CSV_LOCALIDADE" type="DATA_READER"/>
+<Node enabled="enabled" guiName="Reformat" guiX="367" guiY="190" id="LOCALIDADE_REF" type="REFORMAT">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.SK_LOCALIDADE = $in.0.SK_LOCALIDADE;
+	$out.0.CIDADE = $in.0.CIDADE;
+	$out.0.ESTADO = $in.0.ESTADO;
+	$out.0.CEP = $in.0.CEP;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node dataset="dataset.localidade" datasetFieldMappings="{&quot;gd_dataset&quot;:{&quot;datasetId&quot;:&quot;dataset.localidade&quot;,&quot;datasetTitle&quot;:&quot;Localidade&quot;,&quot;attributes&quot;:[{&quot;gd_dataset_attribute&quot;:{&quot;id&quot;:&quot;attr.localidade.cep&quot;,&quot;title&quot;:&quot;CEP&quot;,&quot;prettyId&quot;:&quot;attr_localidade_cep&quot;,&quot;displayForms&quot;:[{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.localidade.cep&quot;,&quot;title&quot;:&quot;CEP&quot;,&quot;prettyId&quot;:&quot;cep&quot;,&quot;assignedMetadataField&quot;:&quot;CEP&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}],&quot;assignedMetadataField&quot;:null,&quot;selectedDisplayForm&quot;:{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.localidade.cep&quot;,&quot;title&quot;:&quot;CEP&quot;,&quot;prettyId&quot;:&quot;cep&quot;,&quot;assignedMetadataField&quot;:&quot;CEP&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}}},{&quot;gd_dataset_attribute&quot;:{&quot;id&quot;:&quot;attr.localidade.cidade&quot;,&quot;title&quot;:&quot;Cidade&quot;,&quot;prettyId&quot;:&quot;attr_localidade_cidade&quot;,&quot;displayForms&quot;:[{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.localidade.cidade&quot;,&quot;title&quot;:&quot;Cidade&quot;,&quot;prettyId&quot;:&quot;cidade&quot;,&quot;assignedMetadataField&quot;:&quot;CIDADE&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}],&quot;assignedMetadataField&quot;:null,&quot;selectedDisplayForm&quot;:{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.localidade.cidade&quot;,&quot;title&quot;:&quot;Cidade&quot;,&quot;prettyId&quot;:&quot;cidade&quot;,&quot;assignedMetadataField&quot;:&quot;CIDADE&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}}},{&quot;gd_dataset_attribute&quot;:{&quot;id&quot;:&quot;attr.localidade.estado&quot;,&quot;title&quot;:&quot;Estado&quot;,&quot;prettyId&quot;:&quot;attr_localidade_estado&quot;,&quot;displayForms&quot;:[{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.localidade.estado&quot;,&quot;title&quot;:&quot;Estado&quot;,&quot;prettyId&quot;:&quot;estado&quot;,&quot;assignedMetadataField&quot;:&quot;ESTADO&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}],&quot;assignedMetadataField&quot;:null,&quot;selectedDisplayForm&quot;:{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.localidade.estado&quot;,&quot;title&quot;:&quot;Estado&quot;,&quot;prettyId&quot;:&quot;estado&quot;,&quot;assignedMetadataField&quot;:&quot;ESTADO&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}}},{&quot;gd_dataset_attribute&quot;:{&quot;id&quot;:&quot;attr.localidade.iddaregiao&quot;,&quot;title&quot;:&quot;ID da Região&quot;,&quot;prettyId&quot;:&quot;attr_localidade_iddaregiao&quot;,&quot;displayForms&quot;:[{&quot;gd_dataset_attribute_display_form&quot;:{&quot;id&quot;:&quot;label.localidade.iddaregiao&quot;,&quot;title&quot;:&quot;ID da Região&quot;,&quot;prettyId&quot;:&quot;iddaregiao&quot;,&quot;assignedMetadataField&quot;:&quot;SK_LOCALIDADE&quot;,&quot;type&quot;:&quot;STRING&quot;,&quot;referenceKey&quot;:true}}],&quot;assignedMetadataField&quot;:null,&quot;selectedDisplayForm&quot;:null}}],&quot;referencedAttributes&quot;:[],&quot;dateAttributes&quot;:[],&quot;simpleFacts&quot;:[],&quot;dateFacts&quot;:[],&quot;datesWithFactConflict&quot;:[],&quot;fieldsWithMetadataConflict&quot;:[],&quot;entitiesWithoutValue&quot;:[],&quot;entitiesWithoutMetadata&quot;:[],&quot;unassigneddateFacts&quot;:[]}}" enabled="enabled" guiName="GD Dataset Writer" guiX="600" guiY="190" id="LOCALIDADE_WRITER" mode="${LOAD_MODE_DIM}" retriesInterval="60" retriesNumber="5" type="GD_DATASET_WRITER"/>
+<Edge debugMode="true" fromNode="CSV_LOCALIDADE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (output)" toNode="LOCALIDADE_REF:0"/>
+<Edge debugMode="true" fromNode="LOCALIDADE_REF:0" guiBendpoints="" guiRouter="Manhattan" id="Edge1" inPort="Port 0 (in)" metadata="Metadata1" outPort="Port 0 (out)" toNode="LOCALIDADE_WRITER:0"/>
+</Phase>
+</Graph>
